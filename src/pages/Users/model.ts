@@ -6,8 +6,8 @@
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \umi-demo\src\pages\Users\model.ts
  */
-import { Effect, Reducer, Subscription } from 'umi'
-import { queryUsers } from './service'
+import { Effect, Reducer, Subscription } from 'umi';
+import { queryUsers } from './service';
 
 export interface UsersModelType {
   namespace: 'users';
@@ -18,29 +18,30 @@ export interface UsersModelType {
   reducers: {
     getUsers: Reducer;
   };
-  subscriptions: { setup: Subscription };
+  subscriptions: {
+    setup: Subscription;
+  };
 }
 
 const UsersModel: UsersModelType = {
   namespace: 'users',
 
-  state: {
-  },
+  state: {},
 
   effects: {
     *queryUsers(action, { call, put }) {
-      const res = yield call(queryUsers)
-      yield put({ 
+      const res = yield call(queryUsers);
+      yield put({
         type: 'getUsers',
-        payload: res
-      })
+        payload: res,
+      });
     },
   },
 
   reducers: {
     getUsers: (state, { payload }) => {
       return payload;
-    }
+    },
   },
 
   subscriptions: {
@@ -54,6 +55,6 @@ const UsersModel: UsersModelType = {
       });
     },
   },
-}
+};
 
-export default UsersModel
+export default UsersModel;

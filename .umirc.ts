@@ -15,9 +15,10 @@ export default defineConfig({
   fastRefresh: {},
   proxy: {
     '/armito': {
-      'target': 'http://public-api-v1.aspirantzhang.com',
-      'changeOrigin': true,
-      'pathRewrite': { '^/armito' : '' },
+      target: 'http://public-api-v1.aspirantzhang.com',
+      changeOrigin: true,
+      pathRewrite: { '^/armito': '' },
     },
   },
+  mfsu: {},
 });
