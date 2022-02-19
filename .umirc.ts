@@ -7,6 +7,7 @@
  * @FilePath: \umi-demo\.umirc.ts
  */
 import { defineConfig } from 'umi';
+import path from 'path';
 
 export default defineConfig({
   nodeModulesTransform: {
@@ -21,4 +22,7 @@ export default defineConfig({
     },
   },
   mfsu: {},
+  alias: {
+    '~': path.resolve('./'),
+  },
 });
