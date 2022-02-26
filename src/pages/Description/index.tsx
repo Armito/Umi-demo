@@ -24,14 +24,14 @@ const D = () => {
         (item: any) => item.value === cityValue?.[0],
       );
       if (province) {
-        const area = province.children.find(
+        const area = province.children?.find(
           (item: any) => item.value === cityValue?.[1],
         );
         if (area) {
           const city = area.children.find(
             (item: any) => item.value === cityValue?.[2],
           );
-          return [province.label, area.label, city.label];
+          return [province.label, area.label, city?.label];
         }
       }
     } else {
