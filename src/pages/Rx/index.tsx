@@ -1,13 +1,25 @@
 /*
  * @Author: Armito
  * @Date: 2022-02-26 12:17:25
- * @LastEditTime: 2022-02-26 15:42:51
+ * @LastEditTime: 2022-02-27 10:13:43
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \umi-demo\src\pages\Rx\index.tsx
  */
 import { useEffect, useState } from 'react';
-import { interval, Subject, Observable, of, from, bindCallback } from 'rxjs';
+
+import {
+  interval,
+  Subject,
+  Observable,
+  of,
+  from,
+  bindCallback,
+  combineLatest,
+  asapScheduler,
+  asyncScheduler,
+} from 'rxjs';
+
 import { map, filter, take } from 'rxjs/operators';
 
 const Rx = () => {
@@ -67,14 +79,43 @@ const Rx = () => {
   // }, [])
 
   // observable转换
-  useEffect(() => {
-    const ob1 = of<string>('Armito');
-    ob1.pipe(map((d) => d.toUpperCase())).subscribe((d) => setNickName(d));
+  // useEffect(() => {
+  //   const ob1 = of<string>('Armito');
+  //   ob1.pipe(map((d) => d.toUpperCase())).subscribe((d) => setNickName(d));
 
-    const ob2 = from([1, 2, 3]);
-    ob2.pipe(filter((d) => d >= 2)).subscribe({
-      next: (x) => setCount(x),
-    });
+  //   const ob2 = from([1, 2, 3]);
+  //   ob2.pipe(filter((d) => d >= 2)).subscribe({
+  //     next: (x) => setCount(x),
+  //   });
+  // }, []);
+
+  // combineLatest
+  // useEffect(() => {
+  //   // // const ob1 = from([1, 2, 3])
+  //   // const ob1 = of(1, 2, 3)
+  //   // const ob2 = of('A', 'r')
+  //   // // const ob = combineLatest([ob1, ob2], (a, b) => `${a}${b}`)
+  //   // const ob = combineLatest([ob1, ob2]).pipe(
+  //   //   map(([a, b]) => `${a}${b}`)
+  //   // )
+  //   // ob.subscribe({
+  //   //   next: x => console.log(x)
+  //   // })
+
+  //   const weight = of(70, 72, 76, 79, 75);
+  //   const height = of(1.76, 1.77, 1.78);
+  //   const bmi = combineLatest([weight, height]).pipe(
+  //     map(([w, h]) => w / (h * h)),
+  //   );
+  //   bmi.subscribe(x => console.log('BMI is ' + x));
+  // }, [])
+
+  // scheduler
+  useEffect(() => {
+    asapScheduler.schedule(() => console.log(1));
+    asyncScheduler.schedule(() => console.log(2));
+    asapScheduler.schedule(() => console.log(3));
+    asyncScheduler.schedule(() => console.log(4));
   }, []);
 
   return (
