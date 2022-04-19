@@ -19,6 +19,7 @@ import {
   useDebounce,
   useDebounceEffect,
   useUpdate,
+  useGetState,
 } from 'ahooks';
 
 const Hooks = () => {
@@ -115,6 +116,16 @@ const Hooks = () => {
   );
 
   const forceUpdate = useUpdate();
+
+  const numRef = useRef(0);
+  const [num, setNum, getNum] = useGetState(0);
+  useEffect(() => {
+    setNum(11);
+    numRef.current = 11;
+    console.log(num);
+    console.log(getNum());
+    console.log(numRef.current);
+  }, []);
 
   return (
     <div>

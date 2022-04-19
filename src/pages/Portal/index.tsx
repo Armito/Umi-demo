@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Modal from '@/components/Modal';
+import Mask from '@/components/Mask';
 
 const Portal = () => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -16,7 +16,7 @@ const Portal = () => {
     <>
       <div onClick={open}>open</div>
       <div onClick={close}>close</div>
-      <Modal visible={visible} />
+      <Mask visible={visible} />
     </>
   );
 };
