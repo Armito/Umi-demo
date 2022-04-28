@@ -7,6 +7,7 @@
  * @FilePath: \umi-demo\src\pages\Hooks\index.tsx
  */
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { useModel } from 'umi';
 import { Button, Input, message } from 'antd';
 import {
   useMount,
@@ -20,10 +21,20 @@ import {
   useDebounceEffect,
   useUpdate,
   useGetState,
+  useSessionStorageState,
 } from 'ahooks';
 
 const Hooks = () => {
   console.log('Render!');
+
+  const { systemConfigMap } = useModel(
+    'Hooks.seesionMap',
+    ({ systemConfigMap }) => {
+      return {
+        systemConfigMap,
+      };
+    },
+  );
 
   const [count, setCount] = useState<number>(0);
   const countCur = useLatest(count);
@@ -127,6 +138,17 @@ const Hooks = () => {
     console.log(numRef.current);
   }, []);
 
+  const [msg, setmsg] = useSessionStorageState('nickname');
+
+  useEffect(() => {
+    console.log(msg);
+  }, [msg]);
+
+  const onNicknameChange = (e: ChangeEvent) => {
+    console.log(e.target?.value);
+    setmsg(e.target?.value);
+  };
+
   return (
     <div>
       hooks: {count}
@@ -154,6 +176,9 @@ const Hooks = () => {
       </div>
       <div>
         <Button onClick={forceUpdate}>useUpdate</Button>
+      </div>
+      <div>
+        <input type="text" onChange={(e) => onNicknameChange(e)} />
       </div>
     </div>
   );
