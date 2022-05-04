@@ -23,6 +23,7 @@
     "@ant-design/pro-descriptions": "^1.10.44",
     "@ant-design/pro-layout": "^6.5.0",
     "@ant-design/pro-table": "^2.66.4",
+    "@antv/g6": "^4.6.4",
     "ahooks": "^3.1.13",
     "array-move": "^4.0.0",
     "lodash": "^4.17.21",
