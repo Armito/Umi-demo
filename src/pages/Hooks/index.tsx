@@ -27,14 +27,14 @@ import {
 const Hooks = () => {
   console.log('Render!');
 
-  const { systemConfigMap } = useModel(
-    'Hooks.seesionMap',
-    ({ systemConfigMap }) => {
-      return {
-        systemConfigMap,
-      };
-    },
-  );
+  // const { systemConfigMap } = useModel(
+  //   'seesionMap',
+  //   ({ systemConfigMap }) => {
+  //     return {
+  //       systemConfigMap,
+  //     };
+  //   },
+  // );
 
   const [count, setCount] = useState<number>(0);
   const countCur = useLatest(count);

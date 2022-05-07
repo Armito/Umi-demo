@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useSessionStorageState } from 'ahooks';
+import { useModel } from 'umi';
 
 interface SystemData {
   navigationWord?: string;
@@ -29,6 +29,9 @@ interface systemConfigMap {
 }
 
 export default function systemConfigMap() {
+  console.log('@@initialState');
+  const initialState = useModel('@@initialState');
+
   const [systemConfigMap, setSystemConfig] = useState<systemConfigMap>({
     systemData: {
       workOrderFlag: 'YES',
@@ -47,11 +50,9 @@ export default function systemConfigMap() {
     });
   }, []);
 
-  // 无效
-  const [msg, setmsg] = useSessionStorageState('nickname');
   useEffect(() => {
-    console.log('session');
-  }, [msg]);
+    console.log(initialState);
+  }, [initialState]);
 
   return {
     systemConfigMap,

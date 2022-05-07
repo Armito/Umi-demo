@@ -25,4 +25,7 @@ export default defineConfig({
   alias: {
     '~': path.resolve('./'),
   },
+  dva: {
+    lazyLoad: true,
+  },
 });
