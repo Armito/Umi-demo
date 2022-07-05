@@ -23,7 +23,16 @@ interface ModalTestProps {
 const ModalTest: FC<ModalTestProps> = (props) => {
   const { visible, content, initialValues, onOk, onCancel } = props;
 
-  //   const [form] = Form.useForm<FormModel>();
+  const [form] = Form.useForm<FormModel>();
+
+  useEffect(() => {
+    if (visible) {
+      // setTimeout(() => {
+      //   form.resetFields();
+      // }, 100);
+      form.resetFields();
+    }
+  }, [visible]);
 
   console.log('run modal');
 
@@ -39,7 +48,7 @@ const ModalTest: FC<ModalTestProps> = (props) => {
   };
 
   const handleOnOk = () => {
-    // onOk(form.getFieldsValue());
+    onOk(form.getFieldsValue());
   };
 
   const handleOnCancel = () => {
@@ -54,16 +63,21 @@ const ModalTest: FC<ModalTestProps> = (props) => {
     <Modal
       title="Basic Modal"
       visible={visible}
-      //   onOk={handleOnOk}
+      onOk={handleOnOk}
       onCancel={handleOnCancel}
-      destroyOnClose
-      footer={null}
+      // destroyOnClose
+      // footer={null}
     >
       <p>{word}</p>
       <p>{content}</p>
 
       {/* {visible ? ( */}
-      <Form initialValues={initialValues} onFinish={onSubmit} preserve={false}>
+      <Form
+        form={form}
+        initialValues={initialValues}
+        onFinish={onSubmit}
+        preserve={true}
+      >
         <Form.Item name="title" required>
           <Input />
         </Form.Item>
