@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { PlusOutlined, EllipsisOutlined } from '@ant-design/icons';
-import { Button, Tag, Space, Menu, Dropdown } from 'antd';
+import { Button, Tag, Space, Menu, Dropdown, Select } from 'antd';
 import ProTable, { TableDropdown } from '@ant-design/pro-table';
 import type { ActionType } from '@ant-design/pro-table';
 import request from 'umi-request';
@@ -178,9 +178,9 @@ export default () => {
         persistenceType: 'localStorage',
       }}
       rowKey="id"
-      search={{
-        labelWidth: 'auto',
-      }}
+      // search={{
+      //   labelWidth: 'auto',
+      // }}
       form={{
         // 由于配置了 transform，提交的参与与定义的不同这里需要转化一下
         syncToUrl: (values, type) => {
@@ -198,6 +198,14 @@ export default () => {
       }}
       dateFormatter="string"
       headerTitle="高级表格"
+      toolbar={{
+        search: (
+          <Select>
+            <Select.Option key={1}>123</Select.Option>
+            <Select.Option key={2}>234</Select.Option>
+          </Select>
+        ),
+      }}
       toolBarRender={() => [
         <Button
           key="button"
