@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Form,
   Input,
@@ -7,9 +7,12 @@ import {
   Button,
   Avatar,
   Typography,
+  DatePicker,
 } from 'antd';
+import type { RangePickerProps } from 'antd/es/date-picker';
 import { SmileOutlined, UserOutlined } from '@ant-design/icons';
 import { FormInstance } from 'antd/lib/form';
+import moment from 'moment';
 
 const layout = {
   labelCol: { span: 8 },
@@ -96,6 +99,25 @@ const Demo = () => {
     console.log('Finish:', values);
   };
 
+  const [start, setStart] = useState(moment());
+  const [end, setEnd] = useState(moment());
+  const onTimeChange = (a) => {
+    console.log(a);
+    setStart(a[0]);
+    setEnd(a[1]);
+  };
+
+  const disabledDate: RangePickerProps['disabledDate'] = useCallback(
+    (current) => {
+      // Can not select days before today and today
+      return (
+        (current && current < start.startOf('day')) ||
+        current > end.endOf('day')
+      );
+    },
+    [start, end],
+  );
+
   return (
     <Form.Provider
       onFormFinish={(name, { values, forms }) => {
@@ -110,6 +132,12 @@ const Demo = () => {
       <Form {...layout} name="basicForm" onFinish={onFinish}>
         <Form.Item name="group" label="Group Name" rules={[{ required: true }]}>
           <Input />
+        </Form.Item>
+        <Form.Item>
+          <DatePicker.RangePicker onChange={onTimeChange} />
+        </Form.Item>
+        <Form.Item>
+          <DatePicker.RangePicker disabledDate={disabledDate} />
         </Form.Item>
         <Form.Item
           label="User List"
