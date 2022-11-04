@@ -29,7 +29,7 @@ interface systemConfigMap {
 }
 
 export default function systemConfigMap() {
-  console.log('@@initialState');
+  // console.log('@@initialState');
   const initialState = useModel('@@initialState');
 
   const [systemConfigMap, setSystemConfig] = useState<systemConfigMap>({
@@ -51,7 +51,7 @@ export default function systemConfigMap() {
   }, []);
 
   useEffect(() => {
-    console.log(initialState);
+    // console.log(initialState);
   }, [initialState]);
 
   return {
