@@ -6,29 +6,20 @@
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \umi-demo\src\pages\Context\index.tsx
  */
-import React, { useContext } from 'react'
-
-const themes = {
-  light: {
-    foreground: "#000000",
-    background: "#eeeeee"
-  },
-  dark: {
-    foreground: "#ffffff",
-    background: "#222222"
-  }
-};
-
-interface Theme {
-  foreground: string;
-  background: string;
-}
-
-const ThemeContext = React.createContext<Theme>(themes.light);
+import React, { useContext, useState } from 'react';
+import { Space } from 'antd';
+import { themes, useTheme, ThemeContext } from './hooks/useTheme';
 
 function App() {
+  const { theme, toggleTheme } = useTheme(themes.dark);
+
   return (
-    <ThemeContext.Provider value={themes.dark}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        toggleTheme,
+      }}
+    >
       <Toolbar />
     </ThemeContext.Provider>
   );
@@ -36,19 +27,28 @@ function App() {
 
 function Toolbar() {
   return (
-    <div>
+    <Space>
+      <ThemedButton themeTo="light" />
+      <ThemedButton themeTo="dark" />
       <ThemedButton />
-    </div>
+    </Space>
   );
 }
 
-function ThemedButton() {
-  const theme = useContext(ThemeContext);
+const ThemedButton = (props: { themeTo?: 'light' | 'dark' }) => {
+  const { themeTo } = props;
+  const {
+    theme: { background, foreground },
+    toggleTheme,
+  } = useContext(ThemeContext);
   return (
-    <button style={{ background: theme.background, color: theme.foreground }}>
-      I am styled by theme context!
+    <button
+      style={{ background: background, color: foreground }}
+      onClick={() => toggleTheme(themeTo)}
+    >
+      to {themeTo || 'toggle'}~
     </button>
   );
-}
+};
 
-export default App
+export default App;
