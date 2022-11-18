@@ -10,7 +10,7 @@ import React, { useContext, useState } from 'react';
 import { Space } from 'antd';
 import { themes, useTheme, ThemeContext } from './hooks/useTheme';
 
-function App() {
+const App = () => {
   const { theme, toggleTheme } = useTheme(themes.dark);
 
   return (
@@ -23,9 +23,9 @@ function App() {
       <Toolbar />
     </ThemeContext.Provider>
   );
-}
+};
 
-function Toolbar() {
+const Toolbar = () => {
   return (
     <Space>
       <ThemedButton themeTo="light" />
@@ -33,7 +33,7 @@ function Toolbar() {
       <ThemedButton />
     </Space>
   );
-}
+};
 
 const ThemedButton = (props: { themeTo?: 'light' | 'dark' }) => {
   const { themeTo } = props;
